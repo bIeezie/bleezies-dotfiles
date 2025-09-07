@@ -50,6 +50,9 @@ echo "--- finished ---"
 
 # --- launch hyprland and apps ---"
 hyprland
+if ! pgrep -x hyprland > /dev/null; then
+    hyprland --i-am-really-stupid
+    fi
 swww init && swww img ~/Pictures/wallpaper.jpg
 wal -i ~/Pictures/wallpaper.jpg
 waybar
