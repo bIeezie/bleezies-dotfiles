@@ -36,12 +36,12 @@ echo "--- done installing basic packages ---"
 
 # --- copy dotfiles into ~/.config ---
 echo "--- copying config files ---"
-cp -r ~/dotfiles/config/fish ~/.config/
-cp -r ~/dotfiles/config/hypr ~/.config/
-cp -r ~/dotfiles/config/kitty ~/.config/
-cp -r ~/dotfiles/config/neofetch ~/.config/
-cp -r ~/dotfiles/config/rofi ~/.config/
-cp -r ~/dotfiles/config/waybar ~/.config/
+cp -r ~/config/fish ~/.config/
+cp -r ~/config/hypr ~/.config/
+cp -r ~/config/kitty ~/.config/
+cp -r ~/config/neofetch ~/.config/
+cp -r ~/config/rofi ~/.config/
+cp -r ~/config/waybar ~/.config/
 
 # --- copy pictures into wallpaper folder
 echo "--- copying wallpapers into wallpaper folder ---"
