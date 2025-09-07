@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# --- check if user is non root ---
+if [ "SEUID" -eq 0 ]; then
+  echo "--- !!!ONLY RUN AS NON ROOT!!! ---"
+  exit 1
+fi
+
 # --- install packages ---
 echo "--- installing basic packages ---"
 sudo pacman -S --needed --noconfirm hyprland
@@ -46,11 +52,23 @@ cp -r ~/dotfiles/wallpapers ~/Pictures/wallpapers
 echo "--- making scripts executable ---"
 chmod +x ~/dotfiles/scripts/*.sh
 
-echo "--- finished ---"
+echo "--- finished setup---"
 
 # --- launch hyprland and apps ---"
-hyprland
-swww init && swww img ~/Pictures/wallpaper.jpg
-wal -i ~/Pictures/wallpaper.jpg
-waybar
+echo "--- launching hyprland and apps ---
+if [ -z "XDG_RUNTIME_DIR" ]; then
+  export XDG_RUNTIME_DIR="/run/user/$(id -u)"
+  mkdir -p "$XDG_RUNTIME_DIR"
+fi
+
+if ! pgrep -x hyprland > /dev/null; then
+  hyprland --in-its-own-namespace &
+else
+  echo "--- hyprland is already running ---"
+fi
+
+sleep 2
+
 chsh -S /bin/fish
+swww init && swww img ~/Pictures/wallpapers/wallpaper.jpg
+wal -i ~/Pictures/wallpapers/wallpaper.jpg
