@@ -73,10 +73,8 @@ echo "--- finished setup---"
 
 # --- launch hyprland and apps ---"
 echo "--- launching hyprland and apps ---"
-if [ -z "XDG_RUNTIME_DIR" ]; then
   export XDG_RUNTIME_DIR="/run/user/$(id -u)"
   mkdir -p "$XDG_RUNTIME_DIR"
-fi
 
 if ! pgrep -x hyprland > /dev/null; then
   hyprland --in-its-own-namespace &
@@ -86,6 +84,8 @@ fi
 
 sleep 2
 
-chsh -S /bin/fish
-swww init && swww img ~/Pictures/wallpapers/wallpaper.jpg
+chsh -s /bin/fish
+swww daemon &
+sleep 1
+swww img ~/Pictures/wallpapers/wallpaper.jpg
 wal -i ~/Pictures/wallpapers/wallpaper.jpg
