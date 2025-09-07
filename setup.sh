@@ -87,7 +87,7 @@ else
 fi
 
 sleep 2
-swww daemon &
+swww-daemon &
 sleep 1
 swww img ~/Pictures/wallpapers/wallpaper.jpg
 wal -i ~/Pictures/wallpapers/wallpaper.jpg
