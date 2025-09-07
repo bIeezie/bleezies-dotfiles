@@ -11,28 +11,43 @@ echo "--- installing basic packages ---"
 sudo pacman -S --needed --noconfirm hyprland
 pacman -Q hyprland
 echo "-hyprland installed-"
+sleep 2
+
 sudo pacman -S --needed --noconfirm thunar
 pacman -Q thunar
 echo "-thunar installed-"
+sleep 2
+
 sudo pacman -S --needed --noconfirm kitty
 pacman -Q kitty
 echo "-kitty installed-"
+sleep 2
+
 sudo pacman -S --needed --noconfirm rofi
 pacman -Q rofi
 echo "-rofi installed-"
+sleep 2
+
 sudo pacman -S --needed --noconfirm swww
 pacman -Q swww
 echo "-swww installed-"
+sleep 2
+
 sudo pacman -S --needed --noconfirm python-pywal
 pacman -Q python-pywal
 echo "-pywal installed-"
+sleep 2
+
 sudo pacman -S --needed --noconfirm fish
 pacman -Q fish
 echo "-fish installed-"
+sleep 2
+
 sudo pacman -S --needed --noconfirm waybar
 pacman -Q waybar
 echo "-waybar installed-"
 echo "--- done installing basic packages ---"
+sleep 2
 
 # --- copy dotfiles into ~/.config ---
 echo "--- copying config files ---"
@@ -47,6 +62,8 @@ cp -r ./config/waybar ~/.config/
 echo "--- copying wallpapers into wallpaper folder ---"
 mkdir -p ~/Pictures/wallpapers
 cp -r ./wallpapers ~/Pictures/wallpapers
+echo "--- done copying files ---"
+sleep 2
 
 # --- make scripts executable ---
 echo "--- making scripts executable ---"
@@ -55,7 +72,7 @@ chmod +x ./scripts/*.sh
 echo "--- finished setup---"
 
 # --- launch hyprland and apps ---"
-echo "--- launching hyprland and apps ---
+echo "--- launching hyprland and apps ---"
 if [ -z "XDG_RUNTIME_DIR" ]; then
   export XDG_RUNTIME_DIR="/run/user/$(id -u)"
   mkdir -p "$XDG_RUNTIME_DIR"
