@@ -8,7 +8,7 @@ fi
 
 # --- change shell to fish ----
 echo "--- please input password for shell change ---"
-chsh -s /bin/fish
+chsh -s /bin/fish "$USER"
 
 # --- install packages ---
 echo "--- installing basic packages ---"
