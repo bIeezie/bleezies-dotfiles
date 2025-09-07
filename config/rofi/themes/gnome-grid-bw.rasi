@@ -1,0 +1,86 @@
+configuration {
+  icon-theme: "Papirus-Dark";
+}
+
+* {
+  font: "Quicksand 10";
+  text-color: #ffffff;
+  background-color: transparent;
+  border-radius: 10px;
+}
+
+window {
+  width: 32%;
+  location: center;
+  anchor: center;
+  padding: 12px;
+  background-color: rgba(0, 0, 0, 0.65);
+  border: 0;
+}
+
+mainbox {
+  children: [ inputbar, listview ];
+  orientation: vertical;
+  spacing: 8px;
+}
+
+inputbar {
+  background-color: rgba(20, 20, 20, 0.8);
+  border-radius: 6px;
+  border: 0;
+  padding: 4px 8px;
+  children: [ prompt, entry ];
+  spacing: 6px;
+}
+
+prompt {
+  text-color: #aaaaaa;
+}
+
+entry {
+  expand: true;
+  background-color: transparent;
+  text-color: #ffffff;
+  cursor: text;
+  padding: 2px;
+}
+
+listview {
+  columns: 3;
+  lines: 2;
+  spacing: 12px;
+  padding: 4px;
+  background-color: transparent;
+  dynamic: true;
+  fixed-height: false;
+  layout: vertical;
+}
+
+element {
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  padding: 6px;
+  orientation: vertical;
+  border: 0;
+  margin: 2px;
+}
+
+element selected {
+  background-color: rgba(255, 255, 255, 0.12);
+  border: 0;
+  border-radius: 8px;
+}
+
+element-icon {
+  size: 38;
+  background-color: transparent;
+  horizontal-align: 0.5;
+  vertical-align: 0.0;
+  margin: 0 0 2px 0;
+}
+
+element-text {
+  text-color: #ffffff;
+  horizontal-align: 0.5;
+  vertical-align: 0.5;
+}
