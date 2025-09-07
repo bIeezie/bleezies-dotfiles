@@ -46,11 +46,11 @@ cp -r ./config/waybar ~/.config/
 # --- copy pictures into wallpaper folder
 echo "--- copying wallpapers into wallpaper folder ---"
 mkdir -p ~/Pictures/wallpapers
-cp -r ~/dotfiles/wallpapers ~/Pictures/wallpapers
+cp -r ./wallpapers ~/Pictures/wallpapers
 
 # --- make scripts executable ---
 echo "--- making scripts executable ---"
-chmod +x ~/dotfiles/scripts/*.sh
+chmod +x ./scripts/*.sh
 
 echo "--- finished setup---"
 
