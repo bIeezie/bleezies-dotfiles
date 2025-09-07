@@ -2,7 +2,14 @@
 
 # --- install packages ---
 echo "--- installing basic packages ---"
-sudo pacman -S --needed --noconfirm hyprland thunar kitty rofi swww python-pywal fish git neofetch waybar
+sudo pacman -S --needed --noconfirm hyprland
+sudo pacman -S --needed --noconfirm thunar
+sudo pacman -S --needed --noconfirm kitty
+sudo pacman -S --needed --noconfirm rofi
+sudo pacman -S --needed --noconfirm swww
+sudo pacman -S --needed --noconfirm python-pywal
+sudo pacman -S --needed --noconfirm fish
+sudo pacman -S --needed --noconfirm waybar
 echo "--- done installing basic packages ---"
 
 # --- clone dotfiles ---
