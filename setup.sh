@@ -28,10 +28,6 @@ pacman -Q waybar
 echo "-waybar installed-"
 echo "--- done installing basic packages ---"
 
-# --- clone dotfiles ---
-echo "--- cloning dotfiles into ~/dotfiles ---"
-git clone https://github.com/bIeezie/bleezies-dotfiles.git ~/dotfiles
-
 # --- copy dotfiles into ~/.config ---
 echo "--- copying config files ---"
 cp -r ~/dotfiles/config/fish ~/.config/
@@ -41,8 +37,20 @@ cp -r ~/dotfiles/config/neofetch ~/.config/
 cp -r ~/dotfiles/config/rofi ~/.config/
 cp -r ~/dotfiles/config/waybar ~/.config/
 
+# --- copy pictures into wallpaper folder
+echo "--- copying wallpapers into wallpaper folder ---"
+mkdir -p ~/Pictures/wallpapers
+cp -r ~/dotfiles/wallpapers ~/Pictures/wallpapers
+
 # --- make scripts executable ---
 echo "--- making scripts executable ---"
 chmod +x ~/dotfiles/scripts/*.sh
 
 echo "--- finished ---"
+
+# --- launch hyprland and apps ---"
+hyprland
+swww init && swww img ~/Pictures/wallpaper.jpg
+wal -i ~/Pictures/wallpaper.jpg
+waybar
+chsh -S /bin/fish
