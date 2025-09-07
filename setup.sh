@@ -1,10 +1,14 @@
 #!/bin/bash
 
 # --- check if user is non root ---
-if [ "SEUID" -eq 0 ]; then
+if [ "$EUID" -eq 0 ]; then
   echo "--- !!!ONLY RUN AS NON ROOT!!! ---"
   exit 1
 fi
+
+# --- change shell to fish ----
+echo "--- please input password for shell change ---"
+chsh -s /bin/fish
 
 # --- install packages ---
 echo "--- installing basic packages ---"
@@ -60,8 +64,8 @@ cp -r ./config/waybar ~/.config/
 
 # --- copy pictures into wallpaper folder
 echo "--- copying wallpapers into wallpaper folder ---"
-mkdir -p ~/Pictures/wallpapers
-cp -r ./wallpapers ~/Pictures/wallpapers
+mkdir -p ~/Pictures
+cp -r ./wallpapers ~/Pictures/
 echo "--- done copying files ---"
 sleep 1
 
@@ -77,14 +81,12 @@ echo "--- launching hyprland and apps ---"
   mkdir -p "$XDG_RUNTIME_DIR"
 
 if ! pgrep -x hyprland > /dev/null; then
-  hyprland --in-its-own-namespace &
+  hyprland &
 else
   echo "--- hyprland is already running ---"
 fi
 
 sleep 2
-
-chsh -s /bin/fish
 swww daemon &
 sleep 1
 swww img ~/Pictures/wallpapers/wallpaper.jpg
