@@ -52,10 +52,15 @@ pacman -Q waybar
 echo "-waybar installed-"
 sleep 0.25
 
+sudo pacman -S --needed --noconfirm yay
+pacman -Q yay
+echo "-yay installed-"
+sleep 0.25
+
 echo "--- installing Quicksand font ---"
 yay -S --needed --noconfirm ttf-quicksand
 fc-cache -fv
-echo "--- font installed ---"
+echo "-font installed-"
 sleep 0.25
 
 echo "--- done installing basic packages ---"
