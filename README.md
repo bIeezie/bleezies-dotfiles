@@ -1,6 +1,6 @@
 these are my mostly cosmetic dotfiles
 
-i use this to easily download my costmetics on other fresh arch installs
+i use this to easily download my cosmetics on other fresh arch installs
 
 this will be slowly worked on overtime into a full prebuilt setup script
 
@@ -12,6 +12,6 @@ this will be slowly worked on overtime into a full prebuilt setup script
 3. chmod +x setup.sh
 4. ./setup.sh
 5. input password for shell change
-6. boom ur in
+6. ur all set up
 
 if anyone has any recommendations for additions or changes just let me know somehow
