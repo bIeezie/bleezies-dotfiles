@@ -15,3 +15,5 @@ this will be slowly worked on overtime into a full prebuilt setup script
 6. ur all set up
 
 if anyone has any recommendations for additions or changes just let me know somehow
+
+btw some code is ai, some is me, and some is pulled
