@@ -1,38 +1,62 @@
 #!/bin/bash
+set -euo pipefail
 
-# Wallpaper folder
-WALLPAPER_DIR="/home/bleezie/Pictures/wallpapers"
+# Wallpaper folder. Override with WALLPAPER_DIR=/path/to/wallpapers if needed.
+WALLPAPER_DIR="${WALLPAPER_DIR:-$HOME/Pictures/wallpapers}"
+CACHE_DIR="$HOME/.cache"
+INDEX_FILE="$CACHE_DIR/wall_index"
+TRANSITION_DURATION="${TRANSITION_DURATION:-0.8}"
+PYWAL_DELAY="${PYWAL_DELAY:-0.9}"
 
-# Get all jpg/png files into array
-WALLPAPER_LIST=($(find "$WALLPAPER_DIR" -type f \( -iname '*.jpg' -o -iname '*.png' \) | sort))
+mkdir -p "$CACHE_DIR"
+
+# Get all wallpaper files into an array, safely handling spaces in filenames.
+mapfile -d '' WALLPAPER_LIST < <(
+  find "$WALLPAPER_DIR" -type f \( -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.png' \) -print0 | sort -z
+)
 COUNT=${#WALLPAPER_LIST[@]}
 
-# Bail if no wallpapers
+# Bail if no wallpapers exist.
 if [ "$COUNT" -eq 0 ]; then
-    notify-send "No wallpapers found!"
-    exit 1
+  notify-send "Wallpaper switcher" "No wallpapers found in $WALLPAPER_DIR"
+  exit 1
 fi
 
-# Index file
-INDEX_FILE="$HOME/.cache/wall_index"
-[ -f "$INDEX_FILE" ] || echo 0 > "$INDEX_FILE"
+# Start swww if Hyprland did not already autostart it.
+if ! swww query >/dev/null 2>&1; then
+  swww-daemon >/tmp/swww-daemon.log 2>&1 &
+  sleep 0.8
+fi
+
+# Read the saved wallpaper index and reset it if it is invalid.
+if [ ! -f "$INDEX_FILE" ] || ! [[ "$(cat "$INDEX_FILE")" =~ ^[0-9]+$ ]]; then
+  echo 0 > "$INDEX_FILE"
+fi
 INDEX=$(cat "$INDEX_FILE")
 
-# Wraparound
+# Wrap around if wallpapers were added/removed.
 if [ "$INDEX" -ge "$COUNT" ]; then
-    INDEX=0
+  INDEX=0
 fi
 
-# Pick next wallpaper
+# Pick the next wallpaper and save the following index for next time.
 WALLPAPER="${WALLPAPER_LIST[$INDEX]}"
 NEXT_INDEX=$(( (INDEX + 1) % COUNT ))
 echo "$NEXT_INDEX" > "$INDEX_FILE"
 
-# Fast transition (lower step = quicker)
-swww img "$WALLPAPER" --transition-type wipe --transition-step 30 --transition-fps 60
+# Change wallpaper first, then wait for the transition before applying pywal colors.
+swww img "$WALLPAPER" \
+  --transition-type wipe \
+  --transition-duration "$TRANSITION_DURATION" \
+  --transition-fps 60
+sleep "$PYWAL_DELAY"
 
-# Wait before setting colors so it grabs the new image
-sleep 1
-
-# Apply pywal colors without setting wallpaper
+# Apply pywal colors without trying to set the wallpaper a second time.
 wal -n -i "$WALLPAPER"
+
+# Refresh Waybar so it picks up pywal-generated colors immediately.
+if pgrep -x waybar >/dev/null; then
+  pkill -SIGUSR2 waybar || true
+fi
+
+notify-send "Wallpaper switched" "Theme synced from $(basename "$WALLPAPER")"
